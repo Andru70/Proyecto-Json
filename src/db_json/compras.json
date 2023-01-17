@@ -1,0 +1,10 @@
+{
+	"compras": [
+		{
+			"id": 1,
+			"id_productos": 1,
+            "id_clientes": 1,
+            "fecha": "hoy"
+		}
+	]
+}

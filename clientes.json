@@ -1,0 +1,22 @@
+[
+    {
+        "nombre": "Juan",
+        "email": "juan@juan",
+        "password": "juanjuan",
+        "rol": "Admin"
+    },
+    {
+        "nombre": "A",
+        "apellido": "A",
+        "email": "A@A",
+        "password": "AAAAAAAA",
+        "rol": "Admin"
+    },
+    {
+        "nombre": "hh",
+        "apellido": "hh",
+        "email": "hh@gmail.com",
+        "password": "hhh",
+        "rol": "Admin"
+    }
+]

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/icon.png" class="rel">
+  
+  <title> Laptos Gamer </title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="logout" style="color: black">Salir</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disable" aria-current="page" href="/" style="color: black">Bienvenido <%= nombre%></a>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+  <div class="contenedor">
+    <div class="container" >
+      <div class="row" >
+        <% for (var i=0; i < json.length; i ++) { %>
+          <div class="col order-first" style=" padding-top: 15px;">
+            <div class="card" style="width: 18rem;" data-nombre="<%= json[i].nombre %>" data-precio="<%= json[i].precio %>">
+              <img src="<%= json[i].imagen%>" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" id="<%= json[i].nombre%>" >
+                  <%= json[i].nombre%>
+                </h5>
+                <p class="card-text"  >
+                  <%= json[i].descripcion%>
+                </p>
+                 <p class="card-text" >
+                  $<%= json[i].precio%>
+                </p>
+                <button class="btn btn-primary" type="button" value="compra" onclick="compra()">Comprar</button>
+              </div>
+
+            </div>
+              
+          </div>
+          <% } %>
+      </div>
+
+    </div>
+   
+  </div>
+  <script type="text/javascript">
+    
+    function  compra() {
+       var card = event.target.closest('.card');
+       var nombre = card.getAttribute('data-nombre');
+       var precio = card.getAttribute('data-precio');
+       console.log(nombre, precio)
+    }
+  </script>
+</body>
+
+</html>
