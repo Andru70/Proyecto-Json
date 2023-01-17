@@ -27,7 +27,7 @@ module.exports = (app) => {
       let jsonData = require("../db_json/productos.json");
       var json = [];
       for (let i = 0; i < jsonData.productos.length; i++) {
-        // console.log(jsonData.productos[i]);
+
         json.push(jsonData.productos[i]);
       }
       // console.log(nombre_user)
@@ -35,6 +35,14 @@ module.exports = (app) => {
         json: json,
         nombre: nombre_user
       });
+    } else {
+      res.redirect("/login");
+    }
+  });
+
+  app.get("/admin", (req, res) => {
+    if (req.session.loggedin) {
+      res.render("indexadmin");
     } else {
       res.redirect("/login");
     }
@@ -54,32 +62,67 @@ module.exports = (app) => {
 
   app.post("/login", (req, res) => {
     let jsonData = require("../../usuarios.json");
+    let jsonData2 = require("../../clientes.json");
     var json = [];
     var user = req.body.email;
     var pass = req.body.password;
+    var userbuscado
     var rol;
 
-    var userbuscado = jsonData.find(dato => dato.email === user)
+    userbuscado = jsonData.find(dato => dato.email === user)
+    userbuscado2 = jsonData2.find(dato => dato.email === user)
 
-    rol = userbuscado.rol
-
-    console.log(rol)
-
-    if (userbuscado && userbuscado.password == pass) {
-
-      req.session.loggedin = true;
-      req.session.nombre = userbuscado.nombre
-      nombre_user = req.session.nombre
-
-      res.redirect("/");
+    if(userbuscado){
+      rol = userbuscado.rol
+      //console.log("Este es un usuario")
+    } else if(userbuscado2){
+      rol = userbuscado2.rol
+      //console.log("Este es un admin")
     } else {
+      console.log("Este usuario no ha sido encontrado")
+      res.redirect("/login");
+    }
+
+    if(userbuscado){
+
+      //console.log(rol)
+
+      if (userbuscado && userbuscado.password == pass && rol == "User") {
+
+        req.session.loggedin = true;
+        req.session.nombre = userbuscado.nombre
+        nombre_user = req.session.nombre
+
+        res.redirect("/");
+
+      } else {
+        res.redirect("/login");
+      }
+    } else if(userbuscado2){
+
+      console.log(rol)
+
+      if (userbuscado2 && userbuscado2.password == pass && rol == "Admin") {
+
+        req.session.loggedin = true;
+        req.session.nombre = userbuscado2.rol
+        //nombre_user = req.session.nombre
+
+        // console.log("Este es un admin 2")
+        res.redirect("/admin");
+
+      } else {
+        res.redirect("/login");
+      }
+      
+    } else{
       res.redirect("/login");
     }
   });
 
+ 
   app.post("/register", (req, res) => {
     let nombre = req.body.nombre;
-    //let apellido = req.body.apellido;
     let email = req.body.email;
     let password = req.body.password;
     let rol = "User";
@@ -91,7 +134,6 @@ module.exports = (app) => {
         rol
     }
 
-    //clientes.push(nuevo_cliente)
     usuarios.push(nuevo_usuario)
 
     fs.writeFileSync("usuarios.json",JSON.stringify(usuarios),

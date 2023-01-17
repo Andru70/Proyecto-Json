@@ -1,14 +1,1 @@
-[
-    {
-        "nombre": "Juan",
-        "email": "j@gmail.com",
-        "password": "juan0000",
-        "rol": "User"
-    },
-    {
-        "nombre": "hh",
-        "email": "hh@gmail.com",
-        "password": "hhh",
-        "rol": "User"
-    }
-]
+[{"nombre":"Juan","email":"j@gmail.com","password":"juan0000","rol":"User"},{"nombre":"hh","email":"hh@gmail.com","password":"hhh","rol":"User"},{"nombre":"Saul","email":"rom@gmail.com","password":"Rome0000","rol":"User"}]
