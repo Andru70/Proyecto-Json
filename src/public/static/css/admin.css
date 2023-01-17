@@ -4,13 +4,13 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     background-color: #F3F3F3;
-}
+} */
 
 .x {
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,70 +34,37 @@ body {
 }
 
 .botones1 button {
-    width: 200px;
+    width: 180px;
     height: 120px;
     color: #ffff;
     border: 5px solid #F3F3F3;
-    background-color: #3B8354;
-    border-radius: 5px;
     font-family: arial, sans-serif;
     font-size: 20px;
     font-weight: bold;
     border-radius: 15px;
+    
 }
 
 .botones1 button:hover {
-    width: 200px;
+    width: 180px;
     height: 120px;
-    background-color: #285939;
-    color: 5px solid #285939;
     border: none;
     cursor: pointer;
 }
-
-/* .botones2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-column-gap: 150px;
-}
-
-.botones2 button {
-    width: 200px;
-    height: 200px;
-    color: #ffff;
-    border: 5px solid #F3F3F3;
-    background-color: #3B8354;
-    border-radius: 5px;
-    font-family: arial, sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.botones2 button:hover {
-    width: 200px;
-    height: 200px;
-    background-color: #285939;
-    color: 5px solid #285939;
-    border: none;
-    cursor: pointer;
-} */
 
 .container_cerrar {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    position: relative;
+    align-items:flex-end;
+    padding-right: 5px;
 }
 
 .boton_cerrar button{
-    width: 130px;
-    height: 100px;
+    width: 160px;
+    height: 50px;
     color: #ffff;
-    border: 5px solid #F3F3F3;
-    background-color: #3B8354;
-    border-radius: 5px;
+    border: 3px solid #F3F3F3;
     font-family: arial, sans-serif;
     font-size: 20px;
     font-weight: bold;
@@ -106,10 +73,8 @@ body {
 }
 
 .boton_cerrar button:hover {
-    width: 120px;
-    height: 100px;
-    background-color: #285939;
-    color: 5px solid #285939;
+    width: 160px;
+    height: 50px;
     border: none;
     cursor: pointer;
 }
