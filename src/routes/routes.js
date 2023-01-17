@@ -62,7 +62,7 @@ module.exports = (app) => {
 
   app.post("/login", (req, res) => {
     let jsonData = require("../../usuarios.json");
-    let jsonData2 = require("../../clientes.json");
+    //let jsonData2 = require("../../clientes.json");
     var json = [];
     var user = req.body.email;
     var pass = req.body.password;
@@ -70,22 +70,9 @@ module.exports = (app) => {
     var rol;
 
     userbuscado = jsonData.find(dato => dato.email === user)
-    userbuscado2 = jsonData2.find(dato => dato.email === user)
-
-    if(userbuscado){
-      rol = userbuscado.rol
-      //console.log("Este es un usuario")
-    } else if(userbuscado2){
-      rol = userbuscado2.rol
-      //console.log("Este es un admin")
-    } else {
-      console.log("Este usuario no ha sido encontrado")
-      res.redirect("/login");
-    }
-
-    if(userbuscado){
-
-      //console.log(rol)
+    //userbuscado2 = jsonData2.find(dato => dato.email === user)
+    rol = userbuscado.rol
+    console.log(rol)
 
       if (userbuscado && userbuscado.password == pass && rol == "User") {
 
@@ -95,29 +82,14 @@ module.exports = (app) => {
 
         res.redirect("/");
 
-      } else {
-        res.redirect("/login");
-      }
-    } else if(userbuscado2){
-
-      console.log(rol)
-
-      if (userbuscado2 && userbuscado2.password == pass && rol == "Admin") {
-
+      } else if(userbuscado && userbuscado.password == pass && rol == "Admin") {
         req.session.loggedin = true;
-        req.session.nombre = userbuscado2.rol
-        //nombre_user = req.session.nombre
-
-        // console.log("Este es un admin 2")
-        res.redirect("/admin");
-
-      } else {
+        req.session.nombre = userbuscado.nombre
+        nombre_user = req.session.nombre
+        res.redirect("/new_product");
+      }else{
         res.redirect("/login");
       }
-      
-    } else{
-      res.redirect("/login");
-    }
   });
 
  
