@@ -10,6 +10,10 @@ const pathJson1 = path.join(__dirname, '../../usuarios.json')
 const file_usuarios = fs.readFileSync(pathJson1, 'utf-8');
 let usuarios  = JSON.parse(file_usuarios);
 
+const pathJson2 = path.join(__dirname, '../db_json/productos.json')
+const file_productos = fs.readFileSync(pathJson2, 'utf-8');
+let listproductos  = JSON.parse(file_productos);
+
 module.exports = (app) => {
   var nombre_user;
   app.use(
@@ -115,12 +119,74 @@ module.exports = (app) => {
       }
     );
     console.log(nuevo_usuario);
-    ;
+  
     res.redirect("/");
   });
 
   app.post("/new_product", (req, res) => {
-    res.render("new_product");  
+
+    let products = require("../db_json/productos.json")
+
+    let num_pro = products.productos.length;
+    let id = num_pro + 1;
+    let id_cat = id;
+
+    // console.log(typeof(num_new))
+
+    let nombre = req.body.nom_producto;
+    let precio = req.body.precio;
+    let descripcion = req.body.descripcion;
+    let imagen = req.body.url_imagen;
+
+    var nuevo_producto = {
+        id,
+        id_cat,
+        nombre,
+        precio,
+        descripcion,
+        imagen
+    }
+
+    console.log(pathJson2)
+
+    // const anadir = async () => {
+
+    //   await fetch('productos.json').then(function(res) {
+    //     console.log(res)
+    //   })
+
+    // }
+
+    // anadir();
+    // .then(data => {
+
+    //   data.productos.push(nuevo_producto)
+    //   console.log(data)
+
+    //   const json = JSON.stringify(data);
+
+    //   fetch('productos.json', {
+    //     method: "PUT",
+    //     body: json
+    //   })
+    // })
+
+    
+
+    //console.log(data)
+    //console.log(listproductos)
+    //listproductos.push(nuevo_producto)
+    //products.parse.push(nuevo_producto)
+    //console.log(json)
+    // fs.writeFileSync("productos.json",JSON.stringify(listproductos),
+    //   "utf8", (err) => {
+    //     if (err) throw err;
+    //     console.log("The file has been saved!");
+    //   }
+    // );
+    // console.log(nuevo_producto);
+    
+    res.redirect("/admin");
   });
 
   app.get('/compra', (req, res)=>{
