@@ -21,7 +21,8 @@
           <a class="nav-link active" aria-current="page" href="logout" style="color: black">Salir</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disable" aria-current="page" href="/" style="color: black">Bienvenido <%= nombre%></a>
+          <h6 id="user"><%= nombre%></h6>
+          
         </li>
       </ul>
     </div>
@@ -59,10 +60,11 @@
   <script type="text/javascript">
     
     function  compra() {
+      var user = document.getElementById("user").innerHTML;
        var card = event.target.closest('.card');
        var nombre = card.getAttribute('data-nombre');
        var precio = card.getAttribute('data-precio');
-       console.log(nombre, precio)
+       console.log(nombre, precio, user)
     }
   </script>
 </body>

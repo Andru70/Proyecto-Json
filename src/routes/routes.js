@@ -16,6 +16,7 @@ const file_productos = fs.readFileSync(pathJson2, 'utf-8');
 let listproductos  = JSON.parse(file_productos);
 
 module.exports = (app) => {
+  app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
   var nombre_user;
   app.use(
@@ -126,34 +127,13 @@ module.exports = (app) => {
   });
 
   app.post("/new_product", (req, res) => {
-    const data = path.join(__dirname, '../../productos.json')
-    const productos = fs.readFileSync(data, 'utf-8');
-    //let listproductos  = JSON.parse(productos);
-    console.log(productos)
-    let num_pro = listproductos.productos.length;
-    let id = num_pro + 1;
-    let id_cat = id;
-
-    let nombre = req.body.nom_producto;
-    let precio = req.body.precio;
-    let descripcion = req.body.descripcion;
-    let imagen = req.body.url_imagen;
-
-    var nuevo_producto = {
-        id,
-        id_cat,
-        nombre,
-        precio,
-        descripcion,
-        imagen
-    }
-
-    fs.appendFile('productos.json', JSON.stringify(nuevo_producto), (err) => {
-    if (err) throw err;
-    console.log('Data has been added to the file!');
-    res.redirect("/login");
-});
-    
+    const data = path.join(__dirname, '../db_json/productos.json')
+    const producto = fs.readFileSync(data, 'utf-8');
+    const product = req.body;
+    let productos = JSON.parse(producto);
+    productos.push(product);
+    fs.writeFileSync('productos.json', JSON.stringify(productos));
+    res.send('Producto guardado');
 
   });
 
