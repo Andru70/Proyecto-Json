@@ -1,3 +1,38 @@
-
-[{"nombre":"Juan","email":"j@gmail.com","password":"juan0000","rol":"User"},{"nombre":"hh","email":"hh@gmail.com","password":"hhh","rol":"User"},{"nombre":"Saul","email":"rom@gmail.com","password":"Rome0000","rol":"User"},{"nombre":"fernan","email":"fernandehoyos93@gmail.com","password":"fernan000","rol":"Admin"}]
-
+[
+    {
+        "nombre": "Juan",
+        "email": "j@gmail.com",
+        "password": "juan0000",
+        "rol": "User"
+    },
+    {
+        "nombre": "hh",
+        "email": "hh@gmail.com",
+        "password": "hhh",
+        "rol": "User"
+    },
+    {
+        "nombre": "Saul",
+        "email": "rom@gmail.com",
+        "password": "Rome0000",
+        "rol": "User"
+    },
+    {
+        "nombre": "fernan",
+        "email": "fernandehoyos93@gmail.com",
+        "password": "fernan000",
+        "rol": "Admin"
+    },
+    {
+        "nombre": "gg",
+        "email": "gg@gg",
+        "password": "gg@gg",
+        "rol": "User"
+    },
+    {
+        "nombre": "gg",
+        "email": "adm@adm",
+        "password": "adm@adm",
+        "rol": "Admin"
+    }
+]

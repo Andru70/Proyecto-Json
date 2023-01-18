@@ -10,7 +10,7 @@
 
 .x {
     width: 100vw;
-    height: 80vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,23 +58,25 @@
     justify-content: center;
     align-items:flex-end;
     padding-right: 5px;
+    padding-top: 3px;
 }
 
 .boton_cerrar button{
-    width: 160px;
-    height: 50px;
+    width: 150px;
+    height: 40px;
     color: #ffff;
     border: 3px solid #F3F3F3;
     font-family: arial, sans-serif;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     border-radius: 15px;
+    
     
 }
 
 .boton_cerrar button:hover {
-    width: 160px;
-    height: 50px;
+    width: 150px;
+    height: 40px;
     border: none;
     cursor: pointer;
 }

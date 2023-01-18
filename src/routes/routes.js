@@ -3,9 +3,9 @@ const fs = require("fs");
 const path = require('path')
 const express = require("express");
 
-const pathJson = path.join(__dirname, '../../clientes.json')
-const file_clientes = fs.readFileSync(pathJson, 'utf-8');
-let clientes  = JSON.parse(file_clientes);
+// const pathJson = path.join(__dirname, '../../clientes.json')
+// const file_clientes = fs.readFileSync(pathJson, 'utf-8');
+// let clientes  = JSON.parse(file_clientes);
 
 const pathJson1 = path.join(__dirname, '../../usuarios.json')
 const file_usuarios = fs.readFileSync(pathJson1, 'utf-8');
@@ -62,6 +62,11 @@ module.exports = (app) => {
     res.render("register");
   });
 
+  //Esto está bien
+  app.get("/json", (req, res) => {
+    res.sendFile('C:\\xampp\\htdocs\\manejo_json\\src\\db_json\\productos.json')
+  });
+
   app.get("/new_product", (req, res) => {
     res.render("new_product");
   });
@@ -76,7 +81,7 @@ module.exports = (app) => {
     var rol;
 
     userbuscado = jsonData.find(dato => dato.email === user)
-    //userbuscado2 = jsonData2.find(dato => dato.email === user)
+    
     rol = userbuscado.rol
     console.log(rol)
 
@@ -92,7 +97,7 @@ module.exports = (app) => {
         req.session.loggedin = true;
         req.session.nombre = userbuscado.nombre
         nombre_user = req.session.nombre
-        res.redirect("/new_product");
+        res.redirect("/admin");
       }else{
         res.redirect("/login");
       }
@@ -120,16 +125,12 @@ module.exports = (app) => {
         console.log("The file has been saved!");
       }
     );
-    console.log(nuevo_usuario);
   
     res.redirect("/");
   });
 
   app.post("/new_product", (req, res) => {
-    const data = path.join(__dirname, '../../productos.json')
-    const productos = fs.readFileSync(data, 'utf-8');
-    //let listproductos  = JSON.parse(productos);
-    console.log(productos)
+    
     let num_pro = listproductos.productos.length;
     let id = num_pro + 1;
     let id_cat = id;
@@ -148,11 +149,24 @@ module.exports = (app) => {
         imagen
     }
 
-    fs.appendFile('productos.json', JSON.stringify(nuevo_producto), (err) => {
-    if (err) throw err;
-    console.log('Data has been added to the file!');
-    res.redirect("/login");
-});
+    console.log(__dirname)
+
+    fetch('http://localhost:3031/json')
+    .then(response => response.json())
+    .then(data => {
+      data.productos.push(nuevo_producto);
+
+      fs.writeFile(pathJson2, JSON.stringify(data), (err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    res.redirect("/admin")
     
 
   });
