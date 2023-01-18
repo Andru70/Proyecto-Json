@@ -1,6 +1,7 @@
 const session = require("express-session");
 const fs = require("fs");
 const path = require('path')
+const express = require("express");
 
 const pathJson = path.join(__dirname, '../../clientes.json')
 const file_clientes = fs.readFileSync(pathJson, 'utf-8');
@@ -15,6 +16,7 @@ const file_productos = fs.readFileSync(pathJson2, 'utf-8');
 let listproductos  = JSON.parse(file_productos);
 
 module.exports = (app) => {
+  app.use(express.json());
   var nombre_user;
   app.use(
     session({
@@ -124,14 +126,13 @@ module.exports = (app) => {
   });
 
   app.post("/new_product", (req, res) => {
-
-    let products = require("../db_json/productos.json")
-
-    let num_pro = products.productos.length;
+    const data = path.join(__dirname, '../../productos.json')
+    const productos = fs.readFileSync(data, 'utf-8');
+    //let listproductos  = JSON.parse(productos);
+    console.log(productos)
+    let num_pro = listproductos.productos.length;
     let id = num_pro + 1;
     let id_cat = id;
-
-    // console.log(typeof(num_new))
 
     let nombre = req.body.nom_producto;
     let precio = req.body.precio;
@@ -147,46 +148,13 @@ module.exports = (app) => {
         imagen
     }
 
-    console.log(pathJson2)
-
-    // const anadir = async () => {
-
-    //   await fetch('productos.json').then(function(res) {
-    //     console.log(res)
-    //   })
-
-    // }
-
-    // anadir();
-    // .then(data => {
-
-    //   data.productos.push(nuevo_producto)
-    //   console.log(data)
-
-    //   const json = JSON.stringify(data);
-
-    //   fetch('productos.json', {
-    //     method: "PUT",
-    //     body: json
-    //   })
-    // })
-
+    fs.appendFile('productos.json', JSON.stringify(nuevo_producto), (err) => {
+    if (err) throw err;
+    console.log('Data has been added to the file!');
+    res.redirect("/login");
+});
     
 
-    //console.log(data)
-    //console.log(listproductos)
-    //listproductos.push(nuevo_producto)
-    //products.parse.push(nuevo_producto)
-    //console.log(json)
-    // fs.writeFileSync("productos.json",JSON.stringify(listproductos),
-    //   "utf8", (err) => {
-    //     if (err) throw err;
-    //     console.log("The file has been saved!");
-    //   }
-    // );
-    // console.log(nuevo_producto);
-    
-    res.redirect("/admin");
   });
 
   app.get('/compra', (req, res)=>{
