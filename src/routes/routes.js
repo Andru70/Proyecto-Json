@@ -67,9 +67,9 @@ module.exports = (app) => {
     res.sendFile('C:\\xampp\\htdocs\\manejo_json\\src\\db_json\\productos.json')
   });
 
-  // app.get("/jsontest", (req, res) => {
-  //   res.sendFile('C:\\xampp\\htdocs\\manejo_json\\productos.json')
-  // });
+  app.get("/jsontest", (req, res) => {
+    res.sendFile('C:\\xampp\\htdocs\\manejo_json\\productos.json')
+  });
 
   app.get("/new_product", (req, res) => {
     res.render("new_product");
@@ -77,6 +77,10 @@ module.exports = (app) => {
 
   app.get("/edit_product", (req, res) => {
     res.render("edit_product");
+  });
+
+  app.get("/delete_product", (req, res) => {
+    res.render("delete_product");
   });
 
   app.post("/login", (req, res) => {
@@ -143,6 +147,10 @@ module.exports = (app) => {
     let id = num_pro + 1;
     let id_cat = id;
 
+    // console.log("Cantidad actual" + num_pro + " , nuevo seria" + id) 
+    console.log(num_pro)
+    console.log(id)
+
     let nombre = req.body.nom_producto;
     let precio = req.body.precio;
     let descripcion = req.body.descripcion;
@@ -157,7 +165,7 @@ module.exports = (app) => {
       imagen
     }
 
-    console.log(__dirname)
+    // console.log(__dirname)
 
     fetch('http://localhost:3031/json')
       .then(response => response.json())
