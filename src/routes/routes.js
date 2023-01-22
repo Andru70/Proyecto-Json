@@ -3,9 +3,9 @@ const fs = require("fs");
 const path = require('path')
 const express = require("express");
 
-const pathJson = path.join(__dirname, '../../clientes.json')
-const file_clientes = fs.readFileSync(pathJson, 'utf-8');
-let clientes  = JSON.parse(file_clientes);
+// const pathJson = path.join(__dirname, '../../clientes.json')
+// const file_clientes = fs.readFileSync(pathJson, 'utf-8');
+// let clientes  = JSON.parse(file_clientes);
 
 const pathJson1 = path.join(__dirname, '../../usuarios.json')
 const file_usuarios = fs.readFileSync(pathJson1, 'utf-8');
@@ -63,6 +63,12 @@ module.exports = (app) => {
     res.render("register");
   });
 
+  //Esto está bien
+  app.get("/json", (req, res) => {
+    let ruta = path.join(__dirname, '../db_json/productos.json')
+    res.sendFile(ruta)
+  });
+
   app.get("/new_product", (req, res) => {
     res.render("new_product");
   });
@@ -77,7 +83,7 @@ module.exports = (app) => {
     var rol;
 
     userbuscado = jsonData.find(dato => dato.email === user)
-    //userbuscado2 = jsonData2.find(dato => dato.email === user)
+    
     rol = userbuscado.rol
     console.log(rol)
 
@@ -93,7 +99,7 @@ module.exports = (app) => {
         req.session.loggedin = true;
         req.session.nombre = userbuscado.nombre
         nombre_user = req.session.nombre
-        res.redirect("/new_product");
+        res.redirect("/admin");
       }else{
         res.redirect("/login");
       }
@@ -121,19 +127,47 @@ module.exports = (app) => {
         console.log("The file has been saved!");
       }
     );
-    console.log(nuevo_usuario);
   
     res.redirect("/");
   });
 
   app.post("/new_product", (req, res) => {
-    const data = path.join(__dirname, '../db_json/productos.json')
-    const producto = fs.readFileSync(data, 'utf-8');
-    const product = req.body;
-    let productos = JSON.parse(producto);
-    productos.push(product);
-    fs.writeFileSync('productos.json', JSON.stringify(productos));
-    res.send('Producto guardado');
+    let num_pro = listproductos.productos.length;
+    let id = num_pro + 1;
+    let id_cat = id;
+
+    let nombre = req.body.nom_producto;
+    let precio = req.body.precio;
+    let descripcion = req.body.descripcion;
+    let imagen = req.body.url_imagen;
+
+    var nuevo_producto = {
+        id,
+        id_cat,
+        nombre,
+        precio,
+        descripcion,
+        imagen
+    }
+
+    console.log(__dirname)
+
+    fetch('http://localhost:3031/json')
+    .then(response => response.json())
+    .then(data => {
+      data.productos.push(nuevo_producto);
+
+      fs.writeFile(pathJson2, JSON.stringify(data), (err) => {
+        if (err) {
+            console.error(err);
+        }
+    });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+    res.redirect("/admin")
 
   });
 

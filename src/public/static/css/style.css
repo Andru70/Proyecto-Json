@@ -1,6 +1,6 @@
 .contenedor{
-	margin-top: 30px;
-	padding: 30px;
+	margin-top: 5px;
+	padding: 15px;
 	/* width: 400px;
 	align-items: center; */
 }
@@ -9,7 +9,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 100vh;
+	min-height: 85vh;
 
 }
 
@@ -17,4 +17,32 @@
 	width: 450px;
 	border-radius: 20px
 
+}
+
+.container_cerrar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+    padding-left: 5px;
+	padding-top: 5px;
+}
+
+.boton_cerrar button{
+    width: 90px;
+    height: 50px;
+    color: #ffff;
+    border: 3px solid #F3F3F3;
+    font-family: arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    
+}
+
+.boton_cerrar button:hover {
+    width: 90px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
 }
