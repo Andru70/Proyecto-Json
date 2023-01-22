@@ -4,8 +4,6 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* text-align: center; */
-    border: 2px solid black;
     border-radius: 5px;
     
 }
@@ -21,12 +19,30 @@ p{
 }
 
 
-#formulario_busqueda {
-	width: 450px;
-    /* height: 90px; */
-	border-radius: 20px;
-
+.container_busqueda {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
+.div_busqueda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formulario_busqueda{
+    position: relative;
+}
+#div_parrafo{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
 
 .container_cerrar {
     display: flex;
@@ -40,6 +56,14 @@ p{
 .boton_cerrar button{
     width: 90px;
     height: 50px;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.boton_cerrar button:hover {
+    width: 90px;
+    height: 50px;
     color: #ffff;
     border: 3px solid #F3F3F3;
     font-family: arial, sans-serif;
@@ -47,11 +71,4 @@ p{
     font-weight: bold;
     border-radius: 15px;
     
-}
-
-.boton_cerrar button:hover {
-    width: 90px;
-    height: 50px;
-    border: none;
-    cursor: pointer;
 }

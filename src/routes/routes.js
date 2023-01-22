@@ -144,10 +144,6 @@ module.exports = (app) => {
   });
 
   app.post("/new_product", (req, res) => {
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     let num_pro = listproductos.productos.length;
     let id = num_pro + 1;
     let id_cat = id;
@@ -188,10 +184,6 @@ module.exports = (app) => {
       });
 
     res.redirect("/admin")
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 
   });
 

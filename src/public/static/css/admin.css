@@ -61,7 +61,7 @@
     padding-top: 3px;
 }
 
-.boton_cerrar button{
+.boton_cerrar button:hover{
     width: 150px;
     height: 40px;
     color: #ffff;
@@ -74,9 +74,10 @@
     
 }
 
-.boton_cerrar button:hover {
+.boton_cerrar button {
     width: 150px;
     height: 40px;
     border: none;
     cursor: pointer;
+    border-radius: 15px;
 }
