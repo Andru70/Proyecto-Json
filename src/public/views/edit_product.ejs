@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/edit.css">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/icon.png" class="rel">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+  <title>Edit product</title>
+</head>
+
+<body>
+
+  <div class="container_cerrar">
+    <div class="boton_cerrar">
+      <a href="admin">
+        <button type="button" class="btn btn-danger" id="bt1_sp"> Atrás </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="container_padre">
+
+    <div class="container_busqueda">
+      <div class="div_busqueda">
+        <form method="post" class="border p-3 form" id="formulario_busqueda">
+          <div class="mb-3" id="input_id">
+            <label for="exampleInputPassword1" class="form-label"> </label>
+            <input type="number" class="form-control" name="id_search" id="id_search"
+              placeholder="Ingrese el id del producto a editar" required>
+          </div>
+          <div>
+            <a>
+              <button type="submit" class="btn btn-dark" id="bt2_sp">
+                <i class="fas fa-search"></i>
+              </button>
+            </a>
+            <div>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="abs-center">
+
+        <div class="contenedor">
+          <form method="post" class="border p-3 form" id="formulario_data">
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Id producto</label>
+              <input type="name" class="form-control" name="nom_producto" id="nom_producto" disabled>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Id categoria</label>
+              <input type="text" class="form-control" name="precio" id="p_producto" disabled>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Nombre producto</label>
+              <input type="name" class="form-control" name="nom_producto" id="nom_producto" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Precio producto</label>
+              <input type="text" class="form-control" name="precio" id="p_producto" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Descripcion</label>
+              <input type="text" class="form-control" name="descripcion" id="des_producto" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Url imagen:</label>
+              <input type="text" class="form-control" name="url_imagen" id="url_producto" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+    <script type="text/javascript">
+
+      const form1 = document.querySelector("#formulario_busqueda");
+      const form2 = document.querySelector("#formulario_data");
+
+
+      //funcion fetchData
+      const fetchData = async (url, index) => {
+
+        const idant = index - 2
+        const id = index - 1
+        const response = await fetch(url);
+        const json = await response.json();
+        const data = json.productos
+        
+        const i = index - 1
+      
+        const tamano = data.length + 1
+    
+
+        //separar los datos en dos arrays
+        const firstArray = data.slice(0, i);
+        const secondArray = data.slice(index, tamano);
+
+        var dataant = data[idant]
+        var dataretorno = data[id]
+        console.log(dataretorno)
+
+        if(dataretorno == undefined){
+            dataretorno == null;
+            console.log("Data no encontrada en su posición")
+        }else if(dataant.id == index){
+            console.log("Data encontrada un objeto antes de posición")
+            dataretorno = dataant
+        }else{
+            dataretorno = null
+        }
+
+        // //devolver los dos arrays
+        return { firstArray, secondArray, dataretorno };
+
+      }
+
+      form1.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        //obtener el numero del formulario
+        const indexform = form1.elements[0].value;
+
+        //console.log(indexform)
+
+        //hacer la peticion fetch y traer la data mas los dos arrays
+        const { firstArray, secondArray, dataretorno } = await fetchData('http://localhost:3031/json', indexform);
+        
+        if(dataretorno == null){
+
+          window.alert(`El producto con id ${dataretorno.id} no existe`)
+
+        }else{
+        const data = dataretorno
+      
+        // //llenar los valores del formulario
+        form2.elements[0].value = data.id;
+        form2.elements[1].value = data.id_cat;
+        form2.elements[2].value = data.nombre;
+        form2.elements[3].value = data.precio;
+        form2.elements[4].value = data.descripcion;
+        form2.elements[5].value = data.imagen;
+
+        // console.log(dataretorno)
+        // console.log(firstArray)
+        // console.log("+")
+        // console.log(secondArray)
+
+        }
+
+        });
+
+      form2.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        //obtener los valores del formulario
+        var formData = {
+            id: parseInt(form2.elements[0].value),
+            id_cat:  parseInt(form2.elements[1].value),
+            nombre: form2.elements[2].value,
+            precio: form2.elements[3].value,
+            descripcion: form2.elements[4].value,
+            imagen: form2.elements[5].value
+          
+        };
+
+        const indexform = form2.elements[0].value
+
+        //hacer la peticion fetch y traer la data mas los dos arrays
+        const { firstArray, secondArray, dataretorno } = await fetchData('http://localhost:3031/json', indexform);
+
+        //unir los arrays
+        const finalArray = firstArray;
+        // console.log(typeof(finalArray))
+        // console.log(typeof(formData))
+        // let test = new Object(secondArray)
+        finalArray.push(formData)
+
+
+        secondArray.forEach(function(obj){
+
+          finalArray.push(obj)
+        
+        })
+        
+        console.log(finalArray)
+
+        fetch('/act_jsonp', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(finalArray)
+        })
+        .then(response => response.json())
+        .then(data => console.log("Exito"))
+        .catch(error => console.error('Error:', error));
+
+        form1.elements[0].value = ""
+
+        form2.elements[0].value = ""   
+        form2.elements[1].value = ""
+        form2.elements[2].value = ""
+        form2.elements[3].value = ""
+        form2.elements[4].value = ""
+        form2.elements[5].value = ""
+
+      })
+
+
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,108 @@
+.contenedor{
+	margin-top: 5px;
+	padding: 15px;
+	
+}
+
+.abs-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 75vh;
+
+}
+
+.form {
+	width: 450px;
+	border-radius: 20px
+
+}
+
+.container_cerrar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding-left: 5px;
+	padding-top: 5px;
+}
+
+.boton_cerrar button{
+    width: 90px;
+    height: 50px;
+    color: #ffff;
+    border: 3px solid #F3F3F3;
+    font-family: arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    
+}
+
+.boton_cerrar button:hover {
+    width: 90px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+}
+
+/* .container_busqueda {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+	padding-top: 5px;
+} */
+
+/* .boton_cerrar button{
+    width: 90px;
+    height: 50px;
+    color: #ffff;
+    border: 3px solid #F3F3F3;
+    font-family: arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    
+}
+
+.boton_cerrar button:hover {
+    width: 90px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+} */
+
+/* .div_busqueda{
+    align-items: center;
+} */
+
+/* .div_busqueda {
+    display: flex; 
+    justify-content: space-between;
+    position: absolute;
+    width: 90%;
+    top: 10px;
+    left: 10px;
+    width: 300px;
+    height: 50px;
+    padding-bottom: 30px;
+} */
+
+.container_padre {
+    position: relative;
+    /* align-items: center; */
+}
+
+/* #input_id { */
+    /* width: 300px; */
+    /* height: 40px; */
+    /* color: #ffff; */
+    /* border: 3px solid #F3F3F3; */
+    /* font-family: arial, sans-serif; */
+    /* font-size: 10px; */
+    /* font-weight: bold; */
+    /* border-radius: 10px; */
+    
+/* } */

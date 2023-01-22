@@ -29,13 +29,11 @@
                     <button type="button" class="btn btn-primary" id="bt1_sp" value="nuevoproducto"> Agregar nuevo producto </button>
                 </a>
         
-                <!-- <a href="{{ url_for('reporte_admin')}}"> -->
-                <a>
-                <button type="button" class="btn btn-primary" id="bt2_sp" onclick=""> Eliminar un producto </button>
+                <a href="delete_product">
+                <button type="button" class="btn btn-primary" id="bt2_sp" > Eliminar un producto </button>
                 </a>
                 
-                <!-- <a href="{{ url_for('adm_registro_estudiante')}}"> -->
-                <a>
+                <a href="edit_product">
                 <button type="button" class="btn btn-primary"> Editar un producto </button>
                 </a>
             </div>
@@ -45,18 +43,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
-
-<script text="type/javascript">
-
-    const anadir = async () => {
-
-    await fetch('/../../db_json/productos.json').then(function(res) {
-      console.log(res)
-    })
-
-    }
-
-    anadir();
-  </script>
 
 </html>
