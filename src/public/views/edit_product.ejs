@@ -15,41 +15,41 @@
 
 <body>
 
-<nav class="navbar navbar-dark bg-dark">
-   <div class="container_cerrar">
-    <div class="boton_cerrar">
-      <a href="admin">
-        <button type="button" class="btn btn-danger" id="bt1_sp"> Atrás </button>
-      </a>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container_cerrar">
+      <div class="boton_cerrar">
+        <a href="admin">
+          <button type="button" class="btn btn-danger" id="bt1_sp"> Atrás </button>
+        </a>
+      </div>
     </div>
-  </div>
-</nav>
- 
+  </nav>
+
 
   <div class="container_padre">
 
     <div class="container_busqueda">
-     <div class="container" id="container">
-       <div class="abs-center" id="bs-center">
+      <div class="container" id="container">
+        <div class="abs-center" id="bs-center">
           <div class="div_busqueda">
-        <form method="post" class="border p-3 form" id="formulario_busqueda">
-          <div class="mb-3" id="input_id">
-            <label for="exampleInputPassword1" class="form-label"> </label>
-            <input type="number" class="form-control" name="id_search" id="id_search"
-              placeholder="Ingrese el id del producto a editar" required>
-          </div>
-          <div>
-            <a>
-              <button type="submit" class="btn btn-dark" id="bt2_sp">
-                <i class="fas fa-search"></i>
-              </button>
-            </a>
-            <div>
-        </form>
+            <form method="post" class="border p-3 form" id="formulario_busqueda">
+              <div class="mb-3" id="input_id">
+                <label for="exampleInputPassword1" class="form-label"> </label>
+                <input type="number" class="form-control" name="id_search" id="id_search"
+                  placeholder="Ingrese el id del producto a editar" required>
+              </div>
+              <div>
+                <a>
+                  <button type="submit" class="btn btn-dark" id="bt2_sp">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </a>
+                <div>
+            </form>
 
+          </div>
+        </div>
       </div>
-       </div>
-     </div>
     </div>
 
     <div class="container">
@@ -90,66 +90,72 @@
   </div>
 
 
-    <script type="text/javascript">
+  <script type="text/javascript">
 
-      const form1 = document.querySelector("#formulario_busqueda");
-      const form2 = document.querySelector("#formulario_data");
+    const form1 = document.querySelector("#formulario_busqueda");
+    const form2 = document.querySelector("#formulario_data");
 
 
-      //funcion fetchData
-      const fetchData = async (url, index) => {
+    //funcion fetchData
+    const fetchData = async (url, index) => {
 
-        const idant = index - 2
-        const id = index - 1
-        const response = await fetch(url);
-        const json = await response.json();
-        const data = json.productos
-        
-        const i = index - 1
-      
-        const tamano = data.length + 1
-    
 
-        //separar los datos en dos arrays
-        const firstArray = data.slice(0, i);
-        const secondArray = data.slice(index, tamano);
+      const id = index - 1
+      const response = await fetch(url);
+      const json = await response.json();
+      const data = json.productos
 
-        var dataant = data[idant]
-        var dataretorno = data[id]
-        console.log(dataretorno)
+      // const i = index - 1
+      const tamano = data.length + 1
 
-        if(dataretorno == undefined){
-            dataretorno == null;
-            console.log("Data no encontrada en su posición")
-        }else if(dataant.id == index){
-            console.log("Data encontrada un objeto antes de posición")
-            dataretorno = dataant
-        }else{
-            dataretorno = null
-        }
 
-        // //devolver los dos arrays
-        return { firstArray, secondArray, dataretorno };
+      //separar los datos en dos arrays
+      const firstArray = data.slice(0, id);
+      const secondArray = data.slice(index, tamano);
 
+      var dataretorno = "";
+
+      function obj() {
+
+        var retorno = null;
+
+        data.forEach(function (obj) {
+
+          if (obj.id == parseInt(index)) {
+
+            retorno = obj;
+
+          }
+
+        })
+
+        return retorno;
       }
 
-      form1.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        //obtener el numero del formulario
-        const indexform = form1.elements[0].value;
+      dataretorno = obj()
 
-        //console.log(indexform)
+      // console.log(dataretorno)
 
-        //hacer la peticion fetch y traer la data mas los dos arrays
-        const { firstArray, secondArray, dataretorno } = await fetchData('http://localhost:3031/json', indexform);
-        
-        if(dataretorno == null){
+      // //devolver los dos arrays
+      return { firstArray, secondArray, dataretorno, tamano };
 
-          window.alert(`El producto con id ${dataretorno.id} no existe`)
+    }
 
-        }else{
+    form1.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      //obtener el numero del formulario
+      const indexform = form1.elements[0].value;
+
+      //hacer la peticion fetch y traer la data mas los dos arrays
+      const { firstArray, secondArray, dataretorno } = await fetchData('http://localhost:3031/json', indexform);
+
+      if (dataretorno == null) {
+
+        window.alert(`El producto con id ${indexform} no existe`)
+
+      } else {
         const data = dataretorno
-      
+
         // //llenar los valores del formulario
         form2.elements[0].value = data.id;
         form2.elements[1].value = data.id_cat;
@@ -158,73 +164,105 @@
         form2.elements[4].value = data.descripcion;
         form2.elements[5].value = data.imagen;
 
-        // console.log(dataretorno)
-        // console.log(firstArray)
-        // console.log("+")
-        // console.log(secondArray)
+      }
+
+    });
+
+    form2.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      //obtener los valores del formulario
+      var formData = {
+        id: parseInt(form2.elements[0].value),
+        id_cat: parseInt(form2.elements[1].value),
+        nombre: form2.elements[2].value,
+        precio: form2.elements[3].value,
+        descripcion: form2.elements[4].value,
+        imagen: form2.elements[5].value
+
+      };
+
+      const indexform = form2.elements[0].value
+
+      //hacer la peticion fetch y traer la data mas los dos arrays
+      const { firstArray, secondArray, dataretorno, tamano } = await fetchData('http://localhost:3031/json', indexform);
+
+      console.log(firstArray)
+      console.log(secondArray)
+      // console.log(typeof (secondArray.length))
+      // console.log(typeof (tamano))
+      var finalArray = [];
+
+      //asignar el primer array a finalArray si su longitud es mayor a 0
+      if (firstArray.length > 0 && secondArray.length > 0) { //Dato de en medio
+
+        finalArray = firstArray;
+
+        //agregar el nuevo objeto capturado del segundo formulario a finalArray
+        finalArray.push(formData)
+
+        //recorrer el segundo array para ir agregando cada uno de los objetos a finalArray
+        secondArray.forEach(function (obj) {
+
+          finalArray.push(obj)
+
+        })
+
+      } else if (firstArray.length > 0 && secondArray.length == 0) { //Ultimo dato
+
+        var i = 0
+
+        while (i < firstArray.length - 1) {
+
+            console.log(firstArray[i])
+            finalArray.push(firstArray[i])
+
+            i = i + 1
 
         }
 
-        });
-
-      form2.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        //obtener los valores del formulario
-        var formData = {
-            id: parseInt(form2.elements[0].value),
-            id_cat:  parseInt(form2.elements[1].value),
-            nombre: form2.elements[2].value,
-            precio: form2.elements[3].value,
-            descripcion: form2.elements[4].value,
-            imagen: form2.elements[5].value
-          
-        };
-
-        const indexform = form2.elements[0].value
-
-        //hacer la peticion fetch y traer la data mas los dos arrays
-        const { firstArray, secondArray, dataretorno } = await fetchData('http://localhost:3031/json', indexform);
-
-        //unir los arrays
-        const finalArray = firstArray;
-        // console.log(typeof(finalArray))
-        // console.log(typeof(formData))
-        // let test = new Object(secondArray)
+        // console.log(finalArray)
+        //agregar el nuevo objeto capturado del segundo formulario a finalArray
         finalArray.push(formData)
 
+      } else { //Primer dato
 
-        secondArray.forEach(function(obj){
+        finalArray.push(formData)
+
+        //recorrer el segundo array para ir agregando cada uno de los objetos a finalArray
+        secondArray.forEach(function (obj) {
 
           finalArray.push(obj)
-        
-        })
-        
-        console.log(finalArray)
 
-        fetch('/act_jsonp', {
+        })
+
+      }
+
+      console.log(finalArray)
+
+      fetch('/act_jsonp', {
         method: 'POST',
         headers: {
-        'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(finalArray)
-        })
+      })
         .then(response => response.json())
         .then(data => console.log("Exito"))
         .catch(error => console.error('Error:', error));
 
-        form1.elements[0].value = ""
+      form1.elements[0].value = ""
 
-        form2.elements[0].value = ""   
-        form2.elements[1].value = ""
-        form2.elements[2].value = ""
-        form2.elements[3].value = ""
-        form2.elements[4].value = ""
-        form2.elements[5].value = ""
+      form2.elements[0].value = ""
+      form2.elements[1].value = ""
+      form2.elements[2].value = ""
+      form2.elements[3].value = ""
+      form2.elements[4].value = ""
+      form2.elements[5].value = ""
 
-      })
+    })
 
 
-    </script>
-  </body>
+  </script>
+</body>
 
 </html>
