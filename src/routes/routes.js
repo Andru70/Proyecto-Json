@@ -96,7 +96,10 @@ module.exports = (app) => {
 
     userbuscado = jsonData.find(dato => dato.email === user)
 
-    rol = userbuscado.rol
+    if(userbuscado){
+      rol = userbuscado.rol
+    }
+    
     // console.log(rol)
 
     if (userbuscado && userbuscado.password == pass && rol == "User") {
